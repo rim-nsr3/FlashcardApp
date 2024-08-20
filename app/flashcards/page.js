@@ -45,7 +45,7 @@ export default function Flashcards() {
             <Toolbar>
             <Typography variant="h6" sx={{ flexGrow: 1, fontFamily: 'Arial, sans-serif', fontWeight: 'bold' }}>
                 <Link href="/" style={{ color: '#2c3e50', textDecoration: 'none' }}>
-                Flashcard SaaS
+                FlipWise
                 </Link>
             </Typography>
             </Toolbar>

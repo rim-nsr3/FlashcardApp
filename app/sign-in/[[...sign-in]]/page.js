@@ -8,7 +8,7 @@ export default function SignUpPage() {
         <AppBar position="sticky" sx={{ backgroundColor: '#AFE1AF', boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)' }}>
           <Toolbar><Typography variant="h6"sx={{flexGrow:1, fontFamily: 'Arial, sans-serif', fontWeight: 'bold' }}>
           <Link href="/" style={{ color: '#2c3e50', textDecoration: 'none' }}>
-            Flashcard SaaS
+            FlipWise
           </Link></Typography><SignedOut><Button sx={{ fontFamily: 'Arial, sans-serif', backgroundColor: '#F5F5DC', color: '#2c3e50', borderRadius: '20px', padding: '8px 16px', minWidth: '120px', marginRight: '16px', '&:hover': { backgroundColor: '#50C878' } }} href="/sign-in">
               LOG IN
             </Button><Button sx={{ fontFamily: 'Arial, sans-serif', backgroundColor: 'transparent', color: '#2c3e50', borderRadius: '20px', padding: '8px 16px', border: '2px solid #F5F5DC', minWidth: '120px', '&:hover': { backgroundColor: '#50C878' } }} href="/sign-up">
