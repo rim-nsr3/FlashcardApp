@@ -59,6 +59,18 @@ button:hover {
   padding: 0 !important;
 }
 
+.css-1772xa9-MuiContainer-root {
+  padding: 0 !important;
+}
+
+.css-zow5z4-MuiGrid-root {
+  margin-top: 0 !important;
+  padding-bottom: 2rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+
 #home-root {
   padding: 0 !important;
 }

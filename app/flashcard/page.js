@@ -4,8 +4,8 @@ import { useUser } from '@clerk/nextjs'
 import { useEffect, useState } from 'react'
 import { collection, doc, getDoc, getDocs, setDoc } from 'firebase/firestore'
 import { db } from '@/firebase'
-import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Paper, TextField, Container, Button, Grid, Box, Typography, Card, CardActionArea, CardContent } from '@mui/material'
-
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Paper, TextField, Container, Button, Grid, Box, Typography, Card, CardActionArea, CardContent, AppBar, Toolbar } from '@mui/material'
+import router from 'next/navigation'
 import { useSearchParams } from 'next/navigation'
 
 export default function Flashcard() {
@@ -45,8 +45,8 @@ export default function Flashcard() {
     }
 
     return (
-        <Container maxWidth="100vw">
-            <Grid container spacing={3} sx={{ mt: 4 }}>
+        <Container maxWidth="100%" style={{ backgroundColor: '#F5F5DC' }}>
+            <Grid container spacing={3} >
                 {flashcards.map((flashcard, index) => (
                     <Grid item xs={12} sm={6} md={4} key={index}>
                         <Card>
@@ -54,13 +54,13 @@ export default function Flashcard() {
                                 handleCardClick(index)
                             }}
                             >
-                                <CardContent sx={{ '&':{background: 'ghostwhite'}}}>
+                                <CardContent sx={{ '&':{background: '#50C878'}}}>
                                     <Box
                                         sx={{
                                             perspective: '1000px',
                                             '& > div': {
-                                                background: 'rgb(156, 39, 176)',
-                                                color: 'white',
+                                                background: '#AFE1AF',
+                                                color: 'black',
                                                 transition: 'transform 0.6s',
                                                 transformStyle: 'preserve-3d',
                                                 position: 'relative',
@@ -105,7 +105,26 @@ export default function Flashcard() {
                         </Card>
                     </Grid>
                 ))}
+
             </Grid>
+            <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center' }}>
+                    <Button fontFamily="Big Caslon" variant='contained' onClick={() => window.location.href = '/flashcards'} sx={{ 
+                    mt: 2, 
+                    px: 4, 
+                    py: 2, 
+                    borderRadius: '25px', 
+                    fontWeight: 'bold', 
+                    color: 'black',
+                    backgroundColor: '#AFE1AF', 
+                    ":hover": { backgroundColor: '#50C878' },
+                    alignContent: 'center',
+                    alignItems: 'center',
+                    marginTop: '-20px',
+                    marginBottom: '30px',
+                  }}>
+                        Back
+                    </Button>
+                </Box>
         </Container>
     )
 }

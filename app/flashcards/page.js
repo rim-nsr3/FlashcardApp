@@ -5,7 +5,7 @@ import { use, useEffect, useState } from 'react'
 import { collection, doc, getDoc, setDoc } from 'firebase/firestore'
 import { db } from '@/firebase'
 import { useRouter } from 'next/navigation'
-import { Container, Grid, Card, CardActionArea, Typography, CardContent } from '@mui/material'
+import { Container, Grid, Card, CardActionArea, Typography, CardContent, AppBar, Toolbar, Link, Button, Box } from '@mui/material'
 
 export default function Flashcards() {
 
@@ -40,13 +40,24 @@ export default function Flashcards() {
     }
 
     return (
-        <Container maxWidth="100vw">
+        <Container maxWidth="100%" style={{ backgroundColor: '#F5F5DC' }}>
+            <AppBar position="sticky" sx={{ backgroundColor: '#AFE1AF', boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)' }}>
+            <Toolbar>
+            <Typography variant="h6" sx={{ flexGrow: 1, fontFamily: 'Arial, sans-serif', fontWeight: 'bold' }}>
+                <Link href="/" style={{ color: '#2c3e50', textDecoration: 'none' }}>
+                Flashcard SaaS
+                </Link>
+            </Typography>
+            </Toolbar>
+        </AppBar>
             <Grid
                 container 
                 spacing={3} 
                 sx={{
                     mt: 4
                 }}
+                height="100vh" 
+                padding={2}
             >
                 {flashcards.map((flashcard, index) => (
                     <Grid item xs={12} sm={6} md={4} key={index}>
