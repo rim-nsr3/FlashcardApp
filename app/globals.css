@@ -63,6 +63,10 @@ button:hover {
   padding: 0 !important;
 }
 
+.css-1k07zcp-MuiContainer-root {
+  padding: 0 !important;
+} 
+
 #home-root>div {
   margin-left: 24px !important;
   margin-right: 24px !important;
