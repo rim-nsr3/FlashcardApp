@@ -12,14 +12,6 @@ import CheckIcon from '@mui/icons-material/Check';
 export default function Home() {
   const router = useRouter()
 
-  const handleSubmitPro = async () => {
-    const checkoutSession = await fetch('/api/checkout_session', {
-      method: 'POST',
-      headers: {
-        origin: 'https://flashcards-phi-eight.vercel.app/',
-        plan: "pro",
-      },
-      
     })
 
     const checkoutSessionJson = await checkoutSession.json()
@@ -31,7 +23,7 @@ export default function Home() {
 
     const stripe = await getStripe()
     const { error } = await stripe.redirectToCheckout({
-      sessionId: checkoutSessionJson.id,
+      sessionId: checkoutSessionJson.id, wow
     })
 
     if (error) {
