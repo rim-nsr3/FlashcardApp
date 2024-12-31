@@ -18,15 +18,26 @@ export default function Flashcard() {
 
     useEffect(() => {
         async function getFlashcard() {
+<<<<<<< HEAD
             if (!search || !user) {
                 return
             }
+=======
+            if (!search && !user) {
+                console.error("Search or user is missing!");
+                return
+            }
+>>>>>>> conflict
             const colRef = collection(doc(collection(db, 'users'), user.id), search)
             const docs = await getDocs(colRef)
             const flashcards = []
 
             docs.forEach((doc) => {
+<<<<<<< HEAD
                 flashcards.push({ id: doc.id, ...doc.data() })
+=======
+                flashcards.push({ id: doc.id, front: doc.data().front })
+>>>>>>> conflict
             })
             setFlashcards(flashcards)
         }
@@ -35,8 +46,13 @@ export default function Flashcard() {
 
     const handleCardClick = (id) => {
         setFlipped((prev) => ({
+<<<<<<< HEAD
             ...prev,
             [id]: !prev[id],
+=======
+            ...prev,
+            id: !prev.id,
+>>>>>>> conflict
         }))
     }
 
@@ -54,7 +70,7 @@ export default function Flashcard() {
                                 handleCardClick(index)
                             }}
                             >
-                                <CardContent sx={{ '&':{background: '#50C878'}}}>
+                                <CardContent sx={{ '&': { background: '#50C878' } }}>
                                     <Box
                                         sx={{
                                             perspective: '1000px',
@@ -67,9 +83,15 @@ export default function Flashcard() {
                                                 width: '100%',
                                                 height: '200px',
                                                 boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
+<<<<<<< HEAD
                                                 transform: flipped[index]
                                                     ? 'rotateY(180deg)'
                                                     : 'rotateY(0deg)',
+=======
+                                                transform: flipped[index]
+                                                    ? 'rotateX(180deg)'
+                                                    : 'rotateX(0deg)',
+>>>>>>> conflict
                                             },
                                             '& > div > div': {
                                                 position: 'absolute',
@@ -108,23 +130,23 @@ export default function Flashcard() {
 
             </Grid>
             <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center' }}>
-                    <Button fontFamily="Big Caslon" variant='contained' onClick={() => window.location.href = '/flashcards'} sx={{ 
-                    mt: 2, 
-                    px: 4, 
-                    py: 2, 
-                    borderRadius: '25px', 
-                    fontWeight: 'bold', 
+                <Button fontFamily="Big Caslon" variant='contained' onClick={() => window.location.href = '/flashcards'} sx={{
+                    mt: 2,
+                    px: 4,
+                    py: 2,
+                    borderRadius: '25px',
+                    fontWeight: 'bold',
                     color: 'black',
-                    backgroundColor: '#AFE1AF', 
+                    backgroundColor: '#AFE1AF',
                     ":hover": { backgroundColor: '#50C878' },
                     alignContent: 'center',
                     alignItems: 'center',
                     marginTop: '-20px',
                     marginBottom: '30px',
-                  }}>
-                        Back
-                    </Button>
-                </Box>
+                }}>
+                    Back
+                </Button>
+            </Box>
         </Container>
     )
 }
