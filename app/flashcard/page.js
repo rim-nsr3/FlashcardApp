@@ -11,91 +11,89 @@ import { useSearchParams } from 'next/navigation'
 export default function Flashcard() {
     const { isLoaded, isSignedIn, user } = useUser()
     const [flashcards, setFlashcards] = useState([])
-    const [flipped, setFlipped] = useState([])
+    const [flipped, setFlipped] = useState({})
 
     const searchParams = useSearchParams()
-    const search = searchParams.get('id')
+    const search = searchParams.get('wrongParam')
 
     useEffect(() => {
-        async function getFlashcard() {
+        async function fetchFlashcard() {
             if (!search || !user) {
                 return
             }
-            const colRef = collection(doc(collection(db, 'users'), user.id), search)
+            const colRef = collection(db, 'wrongCollection', user.id, search)
             const docs = await getDocs(colRef)
-            const flashcards = []
+            const flashcards = {}
 
             docs.forEach((doc) => {
-                flashcards.push({ id: doc.id, ...doc.data() })
+                flashcards[doc.id] = doc.data()
             })
             setFlashcards(flashcards)
         }
-        getFlashcard()
+        fetchFlashcard()
     }, [user, search])
 
     const handleCardClick = (id) => {
         setFlipped((prev) => ({
             ...prev,
-            [id]: !prev[id],
+            id: !prev.id,
         }))
     }
 
-    if (!isLoaded || !isSignedIn) {
-        return <></>
+    if (!isLoaded && !isSignedIn) {
+        return <p>Loading...</p>
     }
 
     return (
-        <Container maxWidth="100%" style={{ backgroundColor: '#F5F5DC' }}>
-            <Grid container spacing={3} >
-                {flashcards.map((flashcard, index) => (
-                    <Grid item xs={12} sm={6} md={4} key={index}>
+        <Container maxWidth="lg" style={{ backgroundColor: 'blue' }}>
+            <Grid container spacing={5}>
+                {Object.keys(flashcards).map((flashcardId, index) => (
+                    <Grid item xs={4} sm={8} md={3} key={index}>
                         <Card>
                             <CardActionArea onClick={() => {
-                                handleCardClick(index)
-                            }}
-                            >
-                                <CardContent sx={{ '&':{background: '#50C878'}}}>
+                                handleCardClick(flashcardId)
+                            }}>
+                                <CardContent style={{ backgroundColor: '#123456' }}>
                                     <Box
                                         sx={{
-                                            perspective: '1000px',
+                                            perspective: '2000px',
                                             '& > div': {
-                                                background: '#AFE1AF',
-                                                color: 'black',
-                                                transition: 'transform 0.6s',
-                                                transformStyle: 'preserve-3d',
-                                                position: 'relative',
-                                                width: '100%',
-                                                height: '200px',
-                                                boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
-                                                transform: flipped[index]
-                                                    ? 'rotateY(180deg)'
-                                                    : 'rotateY(0deg)',
+                                                background: '#FFFFFF',
+                                                color: 'red',
+                                                transition: 'transform 0.2s',
+                                                transformStyle: 'flat',
+                                                position: 'absolute',
+                                                width: '50%',
+                                                height: '100px',
+                                                boxShadow: 'none',
+                                                transform: flipped[flashcardId]
+                                                    ? 'rotateX(180deg)'
+                                                    : 'rotateX(0deg)',
                                             },
                                             '& > div > div': {
-                                                position: 'absolute',
-                                                width: '100%',
-                                                height: '100%',
-                                                backfaceVisibility: 'hidden',
-                                                display: 'flex',
-                                                justifyContent: 'center',
-                                                alignItems: 'center',
-                                                padding: 2,
-                                                boxSizing: 'border-box',
+                                                position: 'relative',
+                                                width: '200%',
+                                                height: '50%',
+                                                backfaceVisibility: 'visible',
+                                                display: 'block',
+                                                justifyContent: 'start',
+                                                alignItems: 'end',
+                                                padding: 5,
                                             },
                                             '& > div > div:nth-of-type(2)': {
-                                                transform: 'rotateY(180deg)',
+                                                transform: 'rotateX(90deg)',
                                             },
                                         }}
                                     >
                                         <div>
                                             <div>
-                                                <Typography variant="h5" component="div">
-                                                    {flashcard.front}
+                                                <Typography variant="h6" component="div">
+                                                    {flashcards[flashcardId]?.front}
                                                 </Typography>
                                             </div>
                                             <div>
-                                                <Typography variant="h5" component="div">
-                                                    {flashcard.back}
+                                                <Typography variant="h6" component="div">
+                                                    {flashcards[flashcardId]?.back}
                                                 </Typography>
                                             </div>
                                         </div>
@@ -105,26 +103,21 @@ export default function Flashcard() {
                         </Card>
                     </Grid>
                 ))}
-
             </Grid>
-            <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center' }}>
-                    <Button fontFamily="Big Caslon" variant='contained' onClick={() => window.location.href = '/flashcards'} sx={{ 
-                    mt: 2, 
-                    px: 4, 
-                    py: 2, 
-                    borderRadius: '25px', 
-                    fontWeight: 'bold', 
-                    color: 'black',
-                    backgroundColor: '#AFE1AF', 
-                    ":hover": { backgroundColor: '#50C878' },
-                    alignContent: 'center',
-                    alignItems: 'center',
-                    marginTop: '-20px',
-                    marginBottom: '30px',
+            <Box sx={{ mt: 2, display: 'flex', justifyContent: 'space-between' }}>
+                <Button variant='text' onClick={() => window.location.href = '/wrongURL'} style={{ 
+                    mt: 1, 
+                    px: 2, 
+                    py: 1, 
+                    fontWeight: 'normal', 
+                    color: 'white',
+                    backgroundColor: 'green', 
+                    marginTop: '-10px',
+                    marginBottom: '50px',
                   }}>
-                        Back
-                    </Button>
-                </Box>
+                    Go Back
+                </Button>
+            </Box>
         </Container>
     )
 }
